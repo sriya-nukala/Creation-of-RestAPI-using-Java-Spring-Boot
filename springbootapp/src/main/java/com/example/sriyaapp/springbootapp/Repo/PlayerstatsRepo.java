@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface PlayerstatsRepo extends JpaRepository<player_stats,Integer> {
 
+    //Custom Query
     @Query(value = "SELECT * FROM player_stats p WHERE p.birth_year= :byear AND p.games= :game AND p.minutes= :min AND p.goals= :goal",nativeQuery = true)
     public List<player_stats> findbyfilter(@Param("byear") Integer birth_year,@Param("game") Integer games, @Param("min") Integer minutes, @Param("goal") Integer goals);
 

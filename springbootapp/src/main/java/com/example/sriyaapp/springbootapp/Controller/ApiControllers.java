@@ -23,37 +23,37 @@ public class ApiControllers {
     @Autowired
     private PlayerDefenceRepo playerDefenceRepo;
 
-    @GetMapping(value = "/")
-    public String getPage(){
-        return "Welcome";
-    }
-
+    //API route to return all players statistics data.
     @GetMapping(value = "fifa/api/v1/statistics/get-all-details")
     public List<player_stats> getplayerStats(){
         return playerstatsRepo.findAll();
     }
 
+    //API route to return results of all statistical data of the player based upon the player id
     @GetMapping(value = "fifa/api/v1/statistics/get-by-id")
     public List<player_stats> getplayerStatsbyId(@RequestParam(value = "id") Integer id){
         return playerstatsRepo.findAllById(Collections.singleton(id));
     }
 
+    //API route to return players statistics with filter (based on no of games played, no of minute played, no of goal score, year of birth)
     @GetMapping(value = "fifa/api/v1/statistics/apply-filter")
     public List<player_stats> getplayerstatsbyfilter(@RequestParam(value = "y") Integer birth_year,@RequestParam(value = "g") Integer games,@RequestParam(value = "m") Integer minutes,@RequestParam(value = "go") Integer goals){
         return playerstatsRepo.findbyfilter(birth_year,games,minutes,goals);
     }
 
-
+    //API route to return all players defense data.
     @GetMapping(value = "fifa/api/v1/defense/get-all-details")
     public List<player_defence> getplayerdefence(){
         return playerDefenceRepo.findAll();
     }
 
+    //API route to return results of all defense data of the player based upon the player id
     @GetMapping(value = "fifa/api/v1/defense/get-by-id")
     public List<player_defence> getplayerdefencebyId(@RequestParam(value = "id") Integer id){
         return playerDefenceRepo.findAllById(Collections.singleton(id));
     }
 
+    //API route to return players defense with filters (based on position,team, tackles, tackle won)
     @GetMapping(value = "fifa/api/v1/defense/apply-filter")
     public List<player_defence> getplayerdefencebyfilter(@RequestParam("pos") String position, @RequestParam("t") String team, @RequestParam("ta") Integer tackles, @RequestParam("tw") Integer tackles_won){
         return playerDefenceRepo.findbyfilterdefence(position,team,tackles,tackles_won);
